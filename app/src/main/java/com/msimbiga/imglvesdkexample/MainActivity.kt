@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import ly.img.android.pesdk.VideoEditorSettingsList
@@ -39,14 +40,13 @@ class MainActivity : ComponentActivity() {
             // A surface container using the 'background' color from the theme
             Surface(
                 modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colors.background
+                color = Color.Black
             ) {
                 CreateMediaView()
             }
         }
     }
 }
-
 
 @Composable
 fun CreateMediaView() {
@@ -82,13 +82,13 @@ fun CreateMediaView() {
             Text("Select video to edit")
         }
         selectedUri?.let { uri ->
-            Text("Selected uri $uri")
+            Text("Selected uri $uri", color = Color.White)
             Button(onClick = { launchEditFlow(videoEditor = videoEditor, uri = uri) }) {
                 Text("Load to vesdk")
             }
         }
         processedUri?.let { uri ->
-            Text(text = "Processed uri $uri")
+            Text(text = "Processed uri $uri", color = Color.White)
             Button(onClick = {
                 processedUri = null
                 selectedUri = null
@@ -99,7 +99,7 @@ fun CreateMediaView() {
     }
 }
 
-fun launchVideoGallery(
+private fun launchVideoGallery(
     context: Context,
     galleryLauncher: ManagedActivityResultLauncher<String, Uri?>
 ) {
@@ -108,7 +108,7 @@ fun launchVideoGallery(
     }
 }
 
-fun launchEditFlow(
+private fun launchEditFlow(
     videoEditor: ManagedActivityResultLauncher<SettingsList, EditorSDKResult>,
     uri: Uri,
 ) {
